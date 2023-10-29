@@ -1,7 +1,7 @@
 # VeraCrypt wordlist attack tool
 #
 # Copyright (c) 2023    Nastya Grifon
-# This software is licensed under the Original BSD License
+# This project is licensed under the MIT License
 
 import argparse
 import subprocess
