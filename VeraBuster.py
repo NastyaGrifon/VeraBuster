@@ -25,6 +25,18 @@ def linuxCrack(p, veracryptPath, volume, total, total_passwords, debug=False):
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  
     out, err = process.communicate()  
     procreturn = str(out, "utf-8").strip() if out else str(err, "utf-8").strip()  # Convert the output to a string
+
+    # Workaround for Error: device-mapper: reload ioctl (https://github.com/veracrypt/VeraCrypt/issues/839)
+    if "device-mapper: reload ioctl" in procreturn or "device-mapper: create ioctl" in procreturn:
+        retry_cmd = f'veracrypt {volume} -p "{p}" -m=nokernelcrypto'  # Retry command with -m=nokernelcrypto flag
+        process = subprocess.Popen(
+            retry_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  
+        out, err = process.communicate()  
+        procreturn = str(out, "utf-8").strip() if out else str(err, "utf-8").strip()
+
+    if debug:
+        print(f"Raw output: {out}")
+        print(f"Raw error: {err}")
     printProgressBar(total, total_passwords)  
     total += 1 
     return "Error" not in procreturn  # Check if there was an error
