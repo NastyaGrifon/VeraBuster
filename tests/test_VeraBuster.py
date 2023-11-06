@@ -8,11 +8,11 @@ import pytest
 from VeraBuster import linuxCrack, printProgressBar, check_root
 
 def test_linuxCrack_success():
-    result = linuxCrack("valid_password", "veracrypt", "/path/to/volume", 1, 1, debug=True)
+    result = linuxCrack("password", "veracrypt", "./tests/test_volume", 1, 1, debug=True)
     assert result == True
 
 def test_linuxCrack_failure():
-    result = linuxCrack("invalid_password", "veracrypt", "/path/to/volume", 1, 1, debug=True)
+    result = linuxCrack("not_a_password", "veracrypt", "./tests/test_volume", 1, 1, debug=True)
     assert result == False
 
 def test_printProgressBar():
