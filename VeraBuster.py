@@ -18,16 +18,28 @@ def check_root():
 
 # Function to crack VeraCrypt on Linux
 def linuxCrack(p, veracryptPath, volume, total, total_passwords, debug=False):
-    cmd = f'veracrypt -t "{volume}" -p {p} --non-interactive'  # Command to execute VeraCrypt
+    cmd = f'veracrypt -t "{volume}" -p "{p}" --non-interactive'  # Command to execute VeraCrypt
     if debug:
         print(f"Executing command: {cmd}")  # Print the executed command if in debug mode
     process = subprocess.Popen(
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  
     out, err = process.communicate()  
     procreturn = str(out, "utf-8").strip() if out else str(err, "utf-8").strip()  # Convert the output to a string
+
+    # Fix for Error: device-mapper: reload ioctl (https://github.com/veracrypt/VeraCrypt/issues/839)
+    if "device-mapper: reload ioctl" in procreturn or "device-mapper: create ioctl" in procreturn:
+        retry_cmd = f'veracrypt {volume} -p "{p}" -m=nokernelcrypto'  # Retry command with -m=nokernelcrypto flag
+        process = subprocess.Popen(
+            retry_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  
+        out, err = process.communicate()  
+        procreturn = str(out, "utf-8").strip() if out else str(err, "utf-8").strip()
+
+    if debug:
+        print(f"Raw output: {out}")
+        print(f"Raw error: {err}")
     printProgressBar(total, total_passwords)  
     total += 1 
-    return procreturn.find("Error: Operation failed due to one or more of the following:") == -1  # Check if there was an error
+    return "Error" not in procreturn  # Check if there was an error
 
 # Function to print the progress bar
 def printProgressBar(iteration, total, prefix='Progress', suffix='Complete', decimals=1, length=50, fill='█', printEnd="\r"):
@@ -74,7 +86,7 @@ if __name__ == '__main__':
         print(f"\nTrying password: {p}")  # Print the currently tested password
         if linuxCrack(p, "veracrypt", args.v, total, total_passwords, args.d): 
             if password_found or args.d:
-                print(f"Password found: {p}")  
+                print(f"Password found: {p}\n")  
             password_found = True  
             break  
         total += 1  
