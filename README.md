@@ -10,29 +10,35 @@ You can install VeraCrypt on your Linux system using the following steps:
 
 ### Ubuntu
 
-`sudo add-apt-repository ppa:unit193/encryption `
-
-`sudo apt-get update`
-
-``sudo apt-get install veracrypt``
+```
+sudo add-apt-repository ppa:unit193/encryption
+sudo apt-get update
+sudo apt-get install veracrypt
+```
 
 ### Fedora
 
-`sudo dnf install -y veracrypt`
+```
+sudo dnf install -y veracrypt
+```
 
 ### Arch/Manjaro
 
-`sudo pacman -S veracrypt`
+```
+sudo pacman -S veracrypt
+```
 
 ## Usage
 
 Run the VeraBuster.py script using Python 3.x. The script accepts the following arguments:
 
-`-v - Path to the VeraCrypt encrypted volume.`
+```
+-v - Path to the VeraCrypt encrypted volume.
 
-`-p - File containing the list of passwords for brute-forcing.`
+-p - File containing the list of passwords for brute-forcing.
 
-`-d - Enable debug mode.`
+-d - Enable debug mode.
+```
 
 Example usage:
 
