@@ -1,4 +1,6 @@
 # VeraBuster
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnastyagrifon%2FVeraBuster.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnastyagrifon%2FVeraBuster?ref=badge_shield)
+
 
 VeraBuster is a tool for recovering passwords of VeraCrypt encrypted volumes. The script performs password brute-forcing from a specified list and checks them against the provided encrypted volume.
 
@@ -51,3 +53,6 @@ This project has drawn significant inspiration from the [VeraCracker project](ht
 ## License
 
 This project is licensed under the MIT License. Please refer to the LICENSE file for more information.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnastyagrifon%2FVeraBuster.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnastyagrifon%2FVeraBuster?ref=badge_large)
